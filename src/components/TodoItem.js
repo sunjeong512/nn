@@ -11,7 +11,8 @@ import styles from "@/styles/TodoList.module.css";
 const TodoItem = ({ todo, onToggle, onDelete }) => {
   // 각 할 일 항목을 렌더링합니다.
   let [isEditing, setIsEditing] = useState(false);
-  let [editText, setEditText] = useState(todo.text)
+  let [editText, setEditText] = useState(todo.text);
+  let [blankAlert, setBlankAlert] = useState(false);
 
   const editTodo = () => {
     setIsEditing(true)
@@ -19,7 +20,7 @@ const TodoItem = ({ todo, onToggle, onDelete }) => {
 
   const editComplete = () => {
     if (editText.trim() == "") {
-      alert("빈 칸을 채워주세요!")
+      setBlankAlert(true);
       return
     }
     setIsEditing(false)
@@ -71,6 +72,23 @@ const TodoItem = ({ todo, onToggle, onDelete }) => {
 
       {/* 삭제 버튼을 렌더링하고, 클릭 시 onDelete 함수를 호출하여 해당 할 일을 삭제합니다. */}
       <button onClick={onDelete}>Delete</button>
+      
+      {
+        blankAlert
+          ? <div className="fixed inset-0 w-full rounded-3xl bg-white border-10 flex flex-col justify-center items-center">
+            <h2 className="mb-8 text-xl font-bold">
+              빈칸을 채워주세요!
+                  </h2>
+                  <div className="flex">
+                    <button className="mr-5 w-40 justify-self-end p-1 mb-4 bg-[#8b5cf6] text-white border border-[#8b5cf6] rounded hover:bg-white hover:text-[#8b5cf6]"
+                      onClick={() => {
+                        setBlankAlert(false);
+                      }}
+                    >확인</button>
+                  </div>
+              </div>
+          : null
+      }
     </li>
   );
 };
