@@ -119,19 +119,21 @@ const TodoList = () => {
       </ul>
 
       {deleteModal && (
-              <div className="fixed inset-0 w-full rounded-3xl bg-white border-10 flex flex-col justify-center items-center">
+              <div className="fixed inset-0 w-full bg-opacity-100 border-10 flex flex-col justify-center items-center">
+                <div className="bg-white w-1/2 h-96 flex flex-col justify-center items-center rounded-3xl ">
                   <h2 className="mb-8 text-xl font-bold">정말 삭제하시겠습니까?</h2>
-                  <div className="flex">
-                    <button className="mr-5 w-40 justify-self-end p-1 mb-4 bg-[#8b5cf6] text-white border border-[#8b5cf6] rounded hover:bg-white hover:text-[#8b5cf6]"
-                      onClick={() => {
-                        deleteTodo(deleteID);
-                        setDeleteModal(false);
-                      }}
-                    >삭제</button>
-                    <button className="w-40 justify-self-end p-1 mb-4 bg-[#8b5cf6] text-white border border-[#8b5cf6] rounded hover:bg-white hover:text-[#8b5cf6]"
-                      onClick={() => setDeleteModal(false)}
-                    >취소</button>
-                  </div>
+                    <div className="flex">
+                      <button className="mr-5 w-40 justify-self-end p-1 mb-4 bg-[#8b5cf6] text-white border border-[#8b5cf6] rounded hover:bg-white hover:text-[#8b5cf6]"
+                        onClick={() => {
+                          deleteTodo(deleteID);
+                          setDeleteModal(false);
+                        }}
+                      >삭제</button>
+                      <button className="w-40 justify-self-end p-1 mb-4 bg-[#8b5cf6] text-white border border-[#8b5cf6] rounded hover:bg-white hover:text-[#8b5cf6]"
+                        onClick={() => setDeleteModal(false)}
+                      >취소</button>
+                    </div>
+                </div>
               </div>
             )}
     </div>
