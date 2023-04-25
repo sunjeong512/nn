@@ -12,6 +12,7 @@ const TodoList = () => {
   // 상태를 관리하는 useState 훅을 사용하여 할 일 목록과 입력값을 초기화합니다.
   const [todos, setTodos] = useState([]);
   const [input, setInput] = useState("");
+  const [deleteModal, setDeleteModal] = useState(false);
 
   // addTodo 함수는 입력값을 이용하여 새로운 할 일을 목록에 추가하는 함수입니다.
   const addTodo = () => {
@@ -43,7 +44,7 @@ const TodoList = () => {
   };
 
   // deleteTodo 함수는 할 일을 목록에서 삭제하는 함수입니다.
-  const deleteTodo = (id) => {
+  const deleteTodo = async (id) => {
     // 해당 id를 가진 할 일을 제외한 나머지 목록을 새로운 상태로 저장합니다.
     // setTodos(todos.filter((todo) => todo.id !== id));
     setTodos(
@@ -52,6 +53,7 @@ const TodoList = () => {
       })
     );
   };
+
 
   // 컴포넌트를 렌더링합니다.
   return (
@@ -100,12 +102,31 @@ const TodoList = () => {
       {/* 할 일 목록을 렌더링합니다. */}
       <ul>
         {todos.map((todo) => (
-          <TodoItem
-            key={todo.id}
-            todo={todo}
-            onToggle={() => toggleTodo(todo.id)}
-            onDelete={() => deleteTodo(todo.id)}
-          />
+          <>
+              <TodoItem
+              key={todo.id}
+              todo={todo}
+              onToggle={() => toggleTodo(todo.id)}
+              onDelete={() => setDeleteModal(true)}
+              // onDelete={() => confirm("정말 삭제하시겠습니까?") && deleteTodo(todo.id)}
+            />
+            {deleteModal && (
+              <div className="fixed inset-0 w-full rounded-3xl bg-white border-10 flex flex-col justify-center items-center">
+                  <h2 className="mb-8 text-xl font-bold">정말 삭제하시겠습니까?</h2>
+                  <div className="flex">
+                    <button className="mr-5 w-40 justify-self-end p-1 mb-4 bg-[#8b5cf6] text-white border border-[#8b5cf6] rounded hover:bg-white hover:text-[#8b5cf6]"
+                      onClick={() => {
+                        deleteTodo(todo.id);
+                        setDeleteModal(false);
+                      }}
+                    >삭제</button>
+                    <button className="w-40 justify-self-end p-1 mb-4 bg-[#8b5cf6] text-white border border-[#8b5cf6] rounded hover:bg-white hover:text-[#8b5cf6]"
+                      onClick={() => setDeleteModal(false)}
+                    >취소</button>
+                  </div>
+              </div>
+            )}
+          </>
         ))}
       </ul>
     </div>
