@@ -64,7 +64,7 @@ const TodoList = () => {
   // 컴포넌트를 렌더링합니다.
   return (
     <div className={styles.container}>
-      <h1 className="animate-bounce text-xl mb-4 font-bold underline underline-offset-4 decoration-double">
+      <h1 className="animate-bounce text-xl mb-4 font-bold underline underline-offset-4 decoration-wavy decoration-[#8b5cf6]">
         Todo List
       </h1>
       {/* 할 일을 입력받는 텍스트 필드입니다. */}
@@ -77,7 +77,7 @@ const TodoList = () => {
         //   padding: 5px;
         //   margin-bottom: 10px;
         // }
-        className="shadow-lg shadow-[#8b5cf6]/30 w-full p-1 mb-4 border border-[#8b5cf6] rounded"
+        className="w-full p-1 mb-4 border border-[#8b5cf6] rounded-2xl"
         value={input}
         onChange={(e) => setInput(e.target.value)}
       />
@@ -99,12 +99,15 @@ const TodoList = () => {
           //   background-color: #fff;
           //   color: #0070f3;
           // }
-          className="w-40 justify-self-end p-1 mb-4 bg-[#8b5cf6] text-white border border-[#8b5cf6] rounded hover:bg-white hover:text-[#8b5cf6]"
+          
+          className="shadow-lg shadow-[#8b5cf6]/40 w-40 justify-self-end p-1 mb-10 bg-[#8b5cf6] text-white border border-[#8b5cf6] rounded-2xl hover:bg-white hover:text-[#8b5cf6]"
           onClick={addTodo}
         >
           Add Todo
         </button>
       </div>
+    
+
       {/* 할 일 목록을 렌더링합니다. */}
       <ul>
         {todos.map((todo) => (
@@ -117,19 +120,19 @@ const TodoList = () => {
             />
         ))}
       </ul>
-
+       
       {deleteModal && (
               <div className="fixed inset-0 w-full bg-opacity-100 border-10 flex flex-col justify-center items-center">
-                <div className="bg-white w-1/2 h-96 flex flex-col justify-center items-center rounded-3xl ">
-                  <h2 className="mb-8 text-xl font-bold">정말 삭제하시겠습니까?</h2>
+                <div className="shadow-md shadow-[#5b21b6]/20 bg-white border-solid border-2 border-[#8b5cf6] w-96 h-40 flex flex-col justify-center items-center rounded-3xl ">
+                  <h2 className="mt-2 mb-6 text-xl font-semibold">정말 삭제하시겠습니까?</h2>
                     <div className="flex">
-                      <button className="mr-5 w-40 justify-self-end p-1 mb-4 bg-[#8b5cf6] text-white border border-[#8b5cf6] rounded hover:bg-white hover:text-[#8b5cf6]"
+                      <button className="mr-5 w-32 justify-self-end p-2 mt-1 mb-3 bg-[#8b5cf6] text-white border border-[#8b5cf6] rounded-2xl hover:bg-white hover:text-[#8b5cf6]"
                         onClick={() => {
                           deleteTodo(deleteID);
                           setDeleteModal(false);
                         }}
                       >삭제</button>
-                      <button className="w-40 justify-self-end p-1 mb-4 bg-[#8b5cf6] text-white border border-[#8b5cf6] rounded hover:bg-white hover:text-[#8b5cf6]"
+                      <button className="w-32 justify-self-end p-1 mt-1 mb-3 bg-[#8b5cf6] text-white border border-[#8b5cf6] rounded-2xl hover:bg-white hover:text-[#8b5cf6]"
                         onClick={() => setDeleteModal(false)}
                       >취소</button>
                     </div>
@@ -139,5 +142,7 @@ const TodoList = () => {
     </div>
   );
 };
+
+
 
 export default TodoList;
