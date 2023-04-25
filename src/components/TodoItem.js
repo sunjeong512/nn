@@ -42,6 +42,7 @@ const TodoItem = ({ todo, onToggle, onDelete }) => {
       {
         isEditing
           ? (<input
+              className={styles.editInput}
               type="text"
               value={editText}
               onChange={(e) => {setEditText(e.target.value)}}
