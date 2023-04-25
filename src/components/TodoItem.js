@@ -18,6 +18,10 @@ const TodoItem = ({ todo, onToggle, onDelete }) => {
   }
 
   const editComplete = () => {
+    if (editText.trim() == "") {
+      alert("빈 칸을 채워주세요!")
+      return
+    }
     setIsEditing(false)
   }
 
