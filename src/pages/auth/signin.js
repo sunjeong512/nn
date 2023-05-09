@@ -9,40 +9,40 @@ export default function Signin() {
     <div className="flex justify-center h-screen">
       {session ? (
         <div className="grid m-auto text-center">
-          <div className="m-4">Signed in as {session.user.name}</div>
+          <div className="m-4 text-lg mb-6">Signed in as {session.user.name}</div>
           <button
             className={`w-40
                       justify-self-center
-                      p-1 mb-4
-                    bg-blue-500 text-white
-                      border border-blue-500 rounded
-                    hover:bg-white hover:text-blue-500`}
+                      p-1 mb-3
+                    bg-[#0ea5e9] text-white
+                      border border-[#0ea5e9] rounded-2xl
+                    hover:bg-white hover:text-[#0ea5e9]`}
             onClick={() => router.push("/")}
           >
-            Go to Home
+            View TodoList
           </button>
           <button
             className={`w-40
                       justify-self-center
                       p-1 mb-4
-                    text-blue-500
-                      border border-blue-500 rounded
-                    hover:bg-white hover:text-blue-500`}
+                    text-[#0ea5e9]
+                      border border-[#0ea5e9] rounded-2xl
+                    hover:bg-white hover:text-[#0ea5e9]`}
             onClick={() => signOut()}
           >
-            Sign out
+            Log out
           </button>
         </div>
       ) : (
         <div className="grid m-auto text-center">
-          <div className="m-4">Not signed in</div>
+          <div className="text-lg m-4">Not signed in</div>
           <button
             className={`w-40
                       justify-self-center
                       p-1 mb-4
-                    bg-blue-500 text-white
-                      border border-blue-500 rounded
-                    hover:bg-white hover:text-blue-500`}
+                    bg-[#0ea5e9] text-white
+                      border border-[#0ea5e9] rounded-2xl
+                    hover:bg-white hover:text-[#0ea5e9]`}
             onClick={() => signIn()}
           >
             Sign in

@@ -33,7 +33,7 @@ const TodoItem = ({ todo, onToggle, onDelete, userinfo }) => {
         {todo.datetime}
       </span>
 
-      {isAdmin && (<button className="bg-[#ede9fe] text-[#8b5cf6] font-normal mb-0.5 py-0.1 px-2 ml-3 rounded-2xl border border-[#ede9fe] hover:border-[#8b5cf6]" 
+      {isAdmin && (<button className="bg-[#e0f2fe] text-[#0ea5e9] font-normal mb-0.5 py-0.1 px-2 ml-3 rounded-2xl border border-[#e0f2fe] hover:border-[#0ea5e9]" 
       onClick={onDelete}>
         Delete
         </button>

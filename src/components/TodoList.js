@@ -144,7 +144,7 @@ const TodoList = () => {
     <div className={styles.container}>
       
       <button 
-        className="w-20 justify-self-end p-1 mb-0 bg-white shadow-md shadow-[#8b5cf6]/20 text-[#8b5cf6] text-sm rounded-2xl hover:bg-[#ddd6fe] hover:border-[#ddd6fe] hover:text-[#8b5cf6]"
+        className="w-20 justify-self-end p-1 mb-0 bg-white shadow-md shadow-[#0ea5e9]/20 text-[#0ea5e9] text-sm rounded-2xl hover:bg-[#f0f9ff] hover:border-[#f0f9ff] hover:text-[#0ea5e9]"
           onClick={() => {
             if (admin_arr.includes(data?.user?.name)){
               setUserinfo((e) => !e)
@@ -159,7 +159,7 @@ const TodoList = () => {
         </button>
 
       <h1 className="animate-bounce text-xl mb-4 font-bold underline underline-offset-4 decoration-wavy">
-      { userinfo ? `${data?.user?.name}'s Todo List` : "모두의 Todo List" } 
+      { userinfo ? `${data?.user?.name}'s Todo List` : "네모난파이의 Todo List" } 
        
       </h1>
       {/* 할 일을 입력받는 텍스트 필드입니다. */}
@@ -172,7 +172,7 @@ const TodoList = () => {
         //   padding: 5px;
         //   margin-bottom: 10px;
         // }
-        className="shadow-lg shadow-[#8b5cf6]/20 w-full p-1 mb-4 border border-[#8b5cf6] rounded-2xl"
+        className="shadow-lg shadow-[#0ea5e9]/20 w-full p-1 mb-4 border border-[#0ea5e9] rounded-2xl"
         value={input}
         onChange={(e) => setInput(e.target.value)}
       />
@@ -194,7 +194,7 @@ const TodoList = () => {
           //   background-color: #fff;
           //   color: #0070f3;
           // }
-          className="w-40 justify-self-end p-1 mb-4 bg-[#8b5cf6] text-white border border-[#8b5cf6] rounded-2xl hover:bg-[#ddd6fe] hover:border-[#ddd6fe] hover:text-[#8b5cf6]"
+          className="w-40 justify-self-end p-1 mb-4 bg-[#0ea5e9] text-white border border-[#0ea5e9] rounded-2xl hover:bg-[#e0f2fe] hover:border-[#e0f2fe] hover:text-[#0ea5e9]"
           onClick={addTodo}
         >
           Add Todo
