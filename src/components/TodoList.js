@@ -5,7 +5,9 @@
 */
 
 import React, { useState, useEffect } from "react";
-import TodoItem from "@/components/TodoItem";
+import { useSession } from "next-auth/react";
+
+import TodoItem from "src/components/TodoItem";
 import styles from "@/styles/TodoList.module.css";
 
 import { db } from "@/firebase";
@@ -18,9 +20,11 @@ import {
   updateDoc,
   deleteDoc,
   orderBy,
+  where,
 } from "firebase/firestore";
 
 const todoCollection = collection(db,"todos");
+
 
 
 // TodoList 컴포넌트를 정의합니다.
@@ -28,10 +32,30 @@ const TodoList = () => {
   // 상태를 관리하는 useState 훅을 사용하여 할 일 목록과 입력값을 초기화합니다.
   const [todos, setTodos] = useState([]);
   const [input, setInput] = useState("");
+  const [userinfo, setUserinfo] = useState(false);
+  {todos.map((todo) => (
+    <TodoItem key={todo.id} todo={todo} userinfo={userinfo} />
+  ))}
+
+  const { data } = useSession();
+  const admin_arr = ["김선정","한승오","김명원","김남희"];
+ 
 
   const getTodos = async () => {
-    const q = query(todoCollection, orderBy("datetime", "desc"));
-
+    if (!data?.user?.name) return;
+    
+    let q;
+    
+    if (userinfo == true) {
+      q = query 
+        ( todoCollection, orderBy("datetime", "asc") );
+    } else { 
+      q = query
+        ( todoCollection,
+        where("userId", "==", data?.user?.id),
+        orderBy("datetime", "asc") );
+    };
+  
     const results = await getDocs(q);
     const newTodos = [];
 
@@ -44,7 +68,7 @@ const TodoList = () => {
 
   useEffect(() => {
     getTodos();
-  }, []);
+  }, [data]);
 
 
   // addTodo 함수는 입력값을 이용하여 새로운 할 일을 목록에 추가하는 함수입니다.
@@ -64,6 +88,7 @@ const TodoList = () => {
 
 
     const docRef = await addDoc(todoCollection, {
+      userId: data?.user?.id,
       text: input,
       completed: false,
       datetime: daytime
@@ -93,6 +118,15 @@ const TodoList = () => {
 
   // deleteTodo 함수는 할 일을 목록에서 삭제하는 함수입니다.
   const deleteTodo = (id) => {
+
+    if (!data?.user?.name) return;
+    
+    const q = query(
+      todoCollection,
+      where("userId", "==", data?.user?.id),
+      orderBy("datetime", "asc")
+    );
+
     const todoDoc = doc(todoCollection, id);
     deleteDoc(todoDoc);
 
@@ -108,8 +142,25 @@ const TodoList = () => {
   // 컴포넌트를 렌더링합니다.
   return (
     <div className={styles.container}>
+      
+      <button 
+        className="w-20 justify-self-end p-1 mb-0 bg-white shadow-md shadow-[#8b5cf6]/20 text-[#8b5cf6] text-sm rounded-2xl hover:bg-[#ddd6fe] hover:border-[#ddd6fe] hover:text-[#8b5cf6]"
+          onClick={() => {
+            if (admin_arr.includes(data?.user?.name)){
+              setUserinfo((e) => !e)
+            } else {
+              window.alert("관리자만 접속할 수 있습니다.")
+              setUserinfo(false)
+            }
+            }}
+        >
+          { userinfo ? "Admin" : "User" } 
+        
+        </button>
+
       <h1 className="animate-bounce text-xl mb-4 font-bold underline underline-offset-4 decoration-wavy">
-        Todo List
+      { userinfo ? `${data?.user?.name}'s Todo List` : "모두의 Todo List" } 
+       
       </h1>
       {/* 할 일을 입력받는 텍스트 필드입니다. */}
       <input
@@ -148,6 +199,7 @@ const TodoList = () => {
         >
           Add Todo
         </button>
+
       </div>
       {/* 할 일 목록을 렌더링합니다. */}
       <ul>
@@ -163,6 +215,7 @@ const TodoList = () => {
     </div>
   );
 };
+
 
 export default TodoList;
 
